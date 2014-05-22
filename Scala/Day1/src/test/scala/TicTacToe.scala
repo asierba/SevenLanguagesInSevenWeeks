@@ -2,9 +2,11 @@ import org.scalatest._
 
 class TicTacToe extends FunSpec with ShouldMatchers {
 
-  def getWinner(board : Array[Array[Char]]) : Char = {
-    if(board(0).forall(x => x == board(0)(0))) {
-      return board(0)(0)
+  def getWinner(board : Array[Array[Char]]) : Char = {    
+    for(row <- board) {
+      if(row.forall(x => x == row.head)) {
+        return row.head
+      }
     }
 
     return ' '
@@ -17,7 +19,7 @@ class TicTacToe extends FunSpec with ShouldMatchers {
 		    Array(' ', ' ', ' '),
 		    Array(' ', ' ', ' '))
 
-      	getWinner(board) should be (' ')
+      getWinner(board) should be (' ')
     }
   }
 
@@ -28,7 +30,7 @@ class TicTacToe extends FunSpec with ShouldMatchers {
         Array(' ', 'O', ' '),
         Array(' ', 'X', 'O'))
 
-        getWinner(board) should be (' ')
+      getWinner(board) should be (' ')
     }
   }
 
@@ -39,7 +41,7 @@ class TicTacToe extends FunSpec with ShouldMatchers {
         Array(' ', ' ', ' '),
         Array(' ', ' ', ' '))
 
-        getWinner(board) should be (' ')
+      getWinner(board) should be (' ')
     }
   }
 
@@ -50,7 +52,7 @@ class TicTacToe extends FunSpec with ShouldMatchers {
         Array(' ', ' ', ' '),
         Array(' ', ' ', ' '))
 
-        getWinner(board) should be (' ')
+      getWinner(board) should be (' ')
     }
   }
 
@@ -61,7 +63,18 @@ class TicTacToe extends FunSpec with ShouldMatchers {
         Array(' ', 'O', ' '),
         Array(' ', 'O', 'O'))
 
-        getWinner(board) should be ('X')
+      getWinner(board) should be ('X')
+    }
+  }
+
+  describe("when X makes three in a row v2") {
+    it("X should be the winner") {
+      val board = Array(       
+        Array(' ', 'O', ' '),
+        Array('X', 'X', 'X'),
+        Array(' ', 'O', 'O'))
+
+      getWinner(board) should be ('X')
     }
   }
 
@@ -72,7 +85,18 @@ class TicTacToe extends FunSpec with ShouldMatchers {
         Array(' ', 'X', ' '),
         Array(' ', 'X', 'X'))
 
-        getWinner(board) should be ('O')
+      getWinner(board) should be ('O')
+    }
+  }
+
+  describe("when O makes three in a row v3") {
+    it("O should be the winner") {
+      val board = Array(        
+        Array(' ', 'X', ' '),        
+        Array(' ', 'X', 'X'),
+        Array('O', 'O', 'O'))
+
+      getWinner(board) should be ('O')
     }
   }
 
