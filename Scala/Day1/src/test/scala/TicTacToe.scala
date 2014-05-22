@@ -3,16 +3,11 @@ import org.scalatest._
 class TicTacToe extends FunSpec with ShouldMatchers {
 
   def getWinner(board : Array[Array[Char]]) : Char = {
-    val user = 'X'
-    
-    for( x <- board(0)) {   
-      if (x != user) {
-        return ' '
-      }
-        
+    if(board(0).forall(x => x == board(0)(0))) {
+      return board(0)(0)
     }
-    
-    return user
+
+    return ' '
   }
 
   describe("when the board is empty") {
@@ -67,6 +62,17 @@ class TicTacToe extends FunSpec with ShouldMatchers {
         Array(' ', 'O', 'O'))
 
         getWinner(board) should be ('X')
+    }
+  }
+
+  describe("when O makes three in a row") {
+    it("O should be the winner") {
+      val board = Array(
+        Array('O', 'O', 'O'),
+        Array(' ', 'X', ' '),
+        Array(' ', 'X', 'X'))
+
+        getWinner(board) should be ('O')
     }
   }
 
