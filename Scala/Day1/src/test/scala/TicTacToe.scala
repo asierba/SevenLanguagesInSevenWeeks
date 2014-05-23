@@ -34,7 +34,7 @@ class TicTacToe extends FunSpec with ShouldMatchers {
     }
   }
 
-  describe("when the game is not over yet v2") {
+  describe("when just two X are in a row right side") {
     it("there should be no winner") {
       val board = Array(
         Array(' ', 'X', 'X'),
@@ -45,7 +45,7 @@ class TicTacToe extends FunSpec with ShouldMatchers {
     }
   }
 
-  describe("when the board is empty v3") {
+  describe("when just two X are in a row left side") {
     it("there should be no winner") {
       val board = Array(
         Array('X', 'X', ' '),
@@ -56,7 +56,7 @@ class TicTacToe extends FunSpec with ShouldMatchers {
     }
   }
 
-  describe("when X makes three in a row") {
+  describe("when three X are in the first row") {
     it("X should be the winner") {
       val board = Array(
         Array('X', 'X', 'X'),
@@ -67,7 +67,7 @@ class TicTacToe extends FunSpec with ShouldMatchers {
     }
   }
 
-  describe("when X makes three in a row v2") {
+  describe("when three X are in the second row") {
     it("X should be the winner") {
       val board = Array(       
         Array(' ', 'O', ' '),
@@ -78,7 +78,18 @@ class TicTacToe extends FunSpec with ShouldMatchers {
     }
   }
 
-  describe("when O makes three in a row") {
+  describe("when three X are in the last row") {
+    it("X should be the winner") {
+      val board = Array(       
+        Array(' ', 'O', ' '),
+        Array(' ', 'O', 'O'),
+        Array('X', 'X', 'X'))
+
+      getWinner(board) should be ('X')
+    }
+  }
+
+  describe("when three O in a row") {
     it("O should be the winner") {
       val board = Array(
         Array('O', 'O', 'O'),
@@ -88,16 +99,4 @@ class TicTacToe extends FunSpec with ShouldMatchers {
       getWinner(board) should be ('O')
     }
   }
-
-  describe("when O makes three in a row v3") {
-    it("O should be the winner") {
-      val board = Array(        
-        Array(' ', 'X', ' '),        
-        Array(' ', 'X', 'X'),
-        Array('O', 'O', 'O'))
-
-      getWinner(board) should be ('O')
-    }
-  }
-
 }
