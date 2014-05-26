@@ -12,41 +12,46 @@ class TicTacToe extends FunSpec with ShouldMatchers {
   import Player._
 
   def getWinner(board : Array[Array[Player]]) : Player = {
-    var winner = getWinnerInRows(board)
+    if(winner(board, Player.X))
+      return Player.X
 
-    if(winner != Player.NONE)
-      return winner
+    if(winner(board, Player.O))
+      return Player.O
 
-    winner = getWinnerInColumns(board)
-
-    if(winner != Player.NONE)
-      return winner
-
-    return getWinnerInDiagonals(board)
+    Player.NONE
   }
 
-  def getWinnerInRows(board : Array[Array[Player]]) : Player = {
+  def winner(board : Array[Array[Player]], player: Player) : Boolean = {
+    if(threeInARow(board, player)
+      || threeInAColumn(board, player)
+      || threeInADiagonal(board, player))
+      return true
+
+    false
+  }
+
+  def threeInARow(board : Array[Array[Player]], player: Player) : Boolean = {
     for(row <- board) {
-      if(row.forall(x => x == row.head)) {
-       return row.head
+      if(row.forall(x => x == player)) {
+       return true
       }
     }
 
-    return Player.NONE
+    false
   }
 
-  def getWinnerInColumns(board : Array[Array[Player]]) : Player = {
-    return getWinnerInRows(board.transpose)
+  def threeInAColumn(board : Array[Array[Player]], player: Player) : Boolean = {
+    threeInARow(board.transpose, player)
   }
 
-  def getWinnerInDiagonals(board : Array[Array[Player]]) : Player =  {
-    if (board(0)(0) == board(1)(1) && board(2)(2) == board(1)(1))
-      return board(1)(1)
+  def threeInADiagonal(board : Array[Array[Player]], player: Player) : Boolean =  {
+    if (board(0)(0) == player &&  board(1)(1) == player && board(2)(2) == player)
+      return true
 
-    if (board(2)(0) == board(1)(1) && board(0)(2) == board(1)(1))
-      return board(1)(1)
+    if (board(2)(0) == player &&  board(1)(1) == player &&  board(0)(2) == player)
+      return true
 
-    return Player.NONE
+    false
   }
 
   describe("when the board is empty") {
