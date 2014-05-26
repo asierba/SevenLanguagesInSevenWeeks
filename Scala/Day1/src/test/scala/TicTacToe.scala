@@ -21,14 +21,9 @@ class TicTacToe extends FunSpec with ShouldMatchers {
     Player.NONE
   }
 
-  def winner(board : Array[Array[Player]], player: Player) : Boolean = {
-    if(threeInARow(board, player)
-      || threeInAColumn(board, player)
-      || threeInADiagonal(board, player))
-      return true
+  def winner(board : Array[Array[Player]], player: Player) : Boolean =
+    threeInARow(board, player) || threeInAColumn(board, player) || threeInADiagonal(board, player)
 
-    false
-  }
 
   def threeInARow(board : Array[Array[Player]], player: Player) : Boolean = {
     for(row <- board) {
@@ -36,7 +31,6 @@ class TicTacToe extends FunSpec with ShouldMatchers {
        return true
       }
     }
-
     false
   }
 
